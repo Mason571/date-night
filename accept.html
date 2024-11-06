@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calandar page2</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        text-align: center;
+        background: linear-gradient(45deg, #220732, #270024);
+        margin: 0;
+        padding: 20px;
+      }
+      .calendar {
+        display: inline-block;
+        border: 1px solid #4caf50;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+      .calendar:hover {
+        transform: scale(1.02);
+      }
+      .header {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #4caf50;
+      }
+      .weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      #days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 5px;
+      }
+      .day {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+        font-size: 18px;
+        color: #333;
+      }
+      .day:hover {
+        background-color: #4caf50;
+        color: white;
+        transform: scale(1.1);
+      }
+      .invite {
+        display: none;
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #4caf50;
+        border-radius: 10px;
+        background-color: #e8f5e9;
+        color: #333;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="calendar">
+      <div class="header">November 2024</div>
+      <div class="weekdays">
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+      </div>
+      <div id="days"></div>
+      <div id="invite" class="invite"></div>
+    </div>
+
+    <script>
+      const daysInMonth = 30; // November has 30 days
+      const firstDayOfMonth = new Date(2024, 10, 1).getDay(); // November 1, 2024
+      const daysContainer = document.getElementById("days");
+      const inviteContainer = document.getElementById("invite");
+
+      // Create empty slots for the days before the first day of the month
+      for (let i = 0; i < firstDayOfMonth; i++) {
+        const emptyDiv = document.createElement("div");
+        emptyDiv.className = "day";
+        daysContainer.appendChild(emptyDiv);
+      }
+
+      // Create the days of the month
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dayDiv = document.createElement("div");
+        dayDiv.className = "day";
+        dayDiv.textContent = day;
+        dayDiv.onclick = () => {
+          const selectedDate = `November ${day}, 2024`;
+          localStorage.setItem("selectedDate", selectedDate);
+          inviteContainer.style.display = "block";
+          inviteContainer.innerHTML = `🙃 You selected: <strong>${selectedDate}</strong>!<br>Let's make it a date!`;
+          setTimeout(() => {
+            window.location.href = "index1.html";
+          }, 2000);
+        };
+        daysContainer.appendChild(dayDiv);
+      }
+    </script>
+    <section>
+      <div>
+        <br />
+        <br />
+        <button
+          style="
+            font-family: 'Comic Sans MS', cursive;
+            font-size: 25px;
+
+            color: rgb(255, 255, 255);
+            background: none;
+            border: 0px solid rgb(250, 15, 222);
+            padding: 8px 15px;
+            border-radius: 2px;
+            cursor: pointer;
+            animation: glow 1s ease-in-out infinite alternate;
+          "
+        >
+          Pick the date for our Hangouts
+        </button>
+        <style>
+          @keyframes glow {
+            from {
+              box-shadow: 0 0 5px #29f6ae, 0 0 10px #fff, 0 0 15px #23ee48,
+                0 0 20px #ff69b4;
+            }
+            to {
+              box-shadow: 0 0 10px #fff, 0 0 20px #db13f1, 0 0 30px #ce24f8,
+                0 0 40px #ff69b4;
+            }
+          }
+        </style>
+      </div>
+    </section>
+  </body>
+</html>
